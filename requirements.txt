@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Django==3.2.12
 django-environ==0.7.0
+=======
+python3
+django

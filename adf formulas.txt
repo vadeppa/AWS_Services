@@ -1,0 +1,229 @@
+                                    OPTIONS  
+
+
+
+Intigration runtime  3 types
+                                     Public netwrok                           Private network
+      
+         Azure :                     data flow,data moment
+                                     Activity dispatch
+                                      
+        Self hosted run time :      data moment,Activity dispatch             Data moment,Activity dispatch 
+ 
+ 
+        ssis Run time :              SISS packages execution                  SISS packages execution
+
+
+
+Integration run time is bridge of linked service and Activity
+
+                    Linked service : target resource data store or compute service.
+ 
+                    Activity       : Task which u want to perform.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      ACTIVITYS
+ 
+Append variable :    It is only supports adding to 'array' type variable
+
+Delete :             Delete files or foldes from on-premises or cloud storages, cannot be restored
+                               Recursively  if enable (data set in all files,folders delete)
+                                               disable(data set in only files dlte folders not dlte)
+                               file path in data set (it mean data set accepet dlte all files)
+                               wild file path  (select file type .txt .csv...)
+                          
+                     logging setting ( xsl file showing which folders dlt what errors having)
+
+                     user properties (wrote something for idea which activity doing which files dlte)
+
+Execute Pipeline :   This activity allows a data factory pipeline to invoke another pipeline
+                             Chat gpt :  You use the "execute pipeline activity" within your main pipeline to trigger the execution of the 
+                                         real-time processing pipeline whenever new data arrives. This activity acts as a mechanism to start 
+                                         the processing logic for the newly ingested data.
+
+
+
+Execute SSIS :
+
+Fail :              If pipline fail after send mail through web publish complite but add fail activity publish also show fail pipeline 
+ 
+Get metadata :      
+
+Look up :           Use the getmetadata activity to retrive the maetadata of any data in adf
+
+Stored procedure1 :
+
+Script1 :
+
+Set variable1 :
+
+Web :
+ 
+Web hook :
+
+Wait :               The pipeline has two activities: Until and Wait. The Wait activity is configured to wait. The pipeline runs the Web activity in a loop with one second waiting time between each run.
+
+                             WAIT TIME IN SECOUNDS
+
+                              Iteration & conditionals
+
+Filter :
+
+For each :
+
+If condition :
+
+Switch :
+
+Until :
+
+
+
+
+
+
+
+
+
+
+
+
+
+                              TRANSFORMATIONS
+
+New branch:         same data but apply two condtions in sigle pipline then use new branch
+
+join:
+
+                     inner join -- select column in common exisits rows give
+                     right join --right side table in all rows give after matching columns give from another table
+                     left join  ---left side table in all rows give after matching columns give from another table
+                     coustom join--one row match the all rows from the another row
+                     full outer join -- all row from both the tables
+
+conditional sprilt:  give a condition is true it will sink 1 loction then false sink in another location
+
+exists:              common exists columns give
+                     does't exists: non match columns give
+
+union:               marge two tables give all rows
+
+lookup:              just like left outer join all matching rows from the both the table non matching           rows from left side
+
+derived column:      add column update inside row information
+
+select :             change column order ,delete column, rename column
+
+aggregate functions: gruop by column , sum,count,avg,max,min..
+
+surrogate key:       give uniqe row number 
+
+pivot:               coulmn in rows make a anthoer columns
+
+unpivot:             columns make a rows
+
+window:              RANK 1 1 3,DENCE-RANK 1 1 2,ROW-RANK 1 2 3 Skip format ,
+
+rank:                defalt rank results give, select dence_rank give results dence
+
+extenal call:
+
+cast:                identify unformat rows after conditional sprilt good rows !iferror()
+                                                      bad rows
+
+flatten:             json file array single column skills convert into separate rows
+
+parse:               database tables in data format like json,xml and delimitaed as create separate columns separate data
+                       (column_name as string , column_name2 as string.......)         
+
+stringify:           use to turn complex data types into stings(data anthoer format convert use this syntext
+                       (tostring(column_name))in derived column) 
+                       data type send or store as a single string entity
+
+filter:              row filter all functions(act like where cluse) ----> equals (salary,'33')
+
+sort:                assending order desending order
+
+alter row:           insert if,delete if,update if (having table at sink location),    upsert if
+                               
+assert:              expect true(!ifnull(todate('bob','ddmmyyyy',expert unigue,expert exists       sink at select update,insert options
+
+flowlwt:             once created activities use anthoer pipeline also same results give (add output)
+
+sink :               output location
+
+
+
+                             FORMULAS
+
+Null replace:iif(isnull(columname),tv(words use''),fv)
+after null clear partion by case formula; (case,sal>20000,'high paid'
+                                                sal>10000,'midum paid'
+                                                sal>5000,'low paid','paid')
+
+
+
+spilit date format wise rowdata separate:
+isNull (toDate (dob,'yyyy-mm-dd'))
+
+delete some days old data:
+@adddays(utcnow(),-30)
+
+fixed length text files divided columns:
+substring(file_name,2,5)
+
+distinct id's pick from both tables;(duplicates row delete)
+source1
+source2...>union....>aggredate...>sort..>sink
+                     gruop by emid
+                     agger..name!='empid'
+                            $$     first($$)
+
+Running total using mapp:
+
+s...>window...>sink
+    sort..asseing.column
+    windowrunng.add column sum(tointeger(quantity)
+SCD
+    
+S...>Alterrow1.......>sink
+     upsetif  1==1     upset select
+                        keycolumn selct
+
+ getmetada count files
+ getmetada....filter
+              @length(activiti.......
+
+13)add columns add drop columns doing copy and sink near
+
+
